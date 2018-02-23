@@ -54,7 +54,7 @@ namespace HairSalonProject.Models
         }
 
         public static List<Stylist> GetAll()
-       {
+        {
            List<Stylist> stylists = new List<Stylist>();
 
            MySqlConnection conn = DB.Connection();
@@ -141,7 +141,7 @@ namespace HairSalonProject.Models
                conn.Dispose();
            }
            Stylist myStylist = new Stylist(tempName);
-           myCuisine.SetId(tempId);
+           myStylist.SetId(tempId);
            return myStylist;
        }
 
