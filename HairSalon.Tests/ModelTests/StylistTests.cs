@@ -12,11 +12,12 @@ namespace HairSalonProject.Tests
         public void Dispose()
         {
             Stylist.DeleteAll();
+            Client.DeleteAll();
         }
 
         public StylistTest()
         {
-            DBConfiguration.ConnectionSTring = "server=localhost;user id=root;password=root;port=8889;database=justin_lardani_test;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=justin_lardani_test;";
         }
 
         [TestMethod]
@@ -38,7 +39,7 @@ namespace HairSalonProject.Tests
             List<Stylist> testStylists = Stylist.GetAll();
             List<Stylist> result = new List<Stylist>(){testStylist};
 
-            CollectionAssert.AreEqual(result, stylists);
+            CollectionAssert.AreEqual(result, testStylists);
         }
 
         [TestMethod]
@@ -49,7 +50,7 @@ namespace HairSalonProject.Tests
 
             Stylist foundStylist = Stylist.Find(testStylist.GetId());
 
-            Assert.AreEqual(testStylist, foundStylist); 
+            Assert.AreEqual(testStylist, foundStylist);
         }
 
     }
