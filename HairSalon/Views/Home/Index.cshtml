@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      @if (Model == null)
+      {
+        <h2>There are currently no stylists in the system</h2>
+      }
+      <h2>Stylists</h2>
+      <ul>
+        @foreach (var stylist in Model)
+        {
+          <a href="/Stylist/Info/@stylist.GetId()"><li>@stylist.GetName()</li></a>
+        }
+      </ul>
+      <a href="/Stylist/Form"><button type="button" class="btn">Add a Stylist</button></a>
+    </div>
+  </div>
+</div>

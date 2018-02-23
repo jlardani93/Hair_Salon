@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Stylist: @Model.GetName()</h2>
+      <h3>Clients</h3>
+      <ul>
+        @foreach (var client in Model.GetClients())
+        {
+          <li>@client.GetName()</li>
+        }
+      </ul>
+      <a href="/Client/Form"><button type="button" class="btn">Add a Client</button></a>
+      <a href="/"><button type="button" class="btn">View All Stylists</button></a>
+    </div>
+  </div>
+</div>
