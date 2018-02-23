@@ -19,10 +19,10 @@ namespace HairSalonProject.Controllers
         public ActionResult Create()
         {
             string name = Request.Form["name"];
-            int stylistId = Request.Form["stylistId"];
+            int stylistId = Int32.Parse(Request.Form["stylistId"]);
             Client myClient = new Client(name, stylistId);
             myClient.Save();
-            return RedirectToAction("Info", "Stylist", new {id=stylistId}); 
+            return RedirectToAction("Info", "Stylist", new {id=stylistId});
         }
     }
 }

@@ -17,7 +17,7 @@ namespace HairSalonProject.Models
             _stylistId = stylistId;
         }
 
-        public void SetId(int id()
+        public void SetId(int id)
         {
             _id = id;
         }
@@ -66,9 +66,7 @@ namespace HairSalonProject.Models
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT * FROM clients WHERE id=@id;";
 
-            MySqlParameter stylistId = new MySqlParameter();
-            id.ParameterName = "@id";
-            id.Value = id;
+            MySqlParameter stylistId = new MySqlParameter("@id", id);
             cmd.Parameters.Add(stylistId);
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;

@@ -68,7 +68,7 @@ namespace HairSalonProject.Models
            {
                int id = (int) rdr.GetInt32(0);
                string name = rdr.GetString(1);
-               Stylist myStylist = new Stylist(name)
+               Stylist myStylist = new Stylist(name);
                myStylist.SetId(id);
                stylists.Add(myStylist);
            }
@@ -82,7 +82,7 @@ namespace HairSalonProject.Models
            return stylists;
        }
 
-        public static List<Client> GetClients()
+        public List<Client> GetClients()
         {
             List<Client> myClients = new List<Client>();
 
@@ -99,7 +99,7 @@ namespace HairSalonProject.Models
 
             while (rdr.Read())
             {
-                Client myClient = new Client(rdr.GetString(1));
+                Client myClient = new Client(rdr.GetString(1), _id);
                 myClient.SetId(rdr.GetInt32(0));
                 myClients.Add(myClient);
             }
@@ -119,9 +119,7 @@ namespace HairSalonProject.Models
            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
            cmd.CommandText = @"SELECT * FROM stylists WHERE id=@id;";
 
-           MySqlParameter stylistId = new MySqlParameter();
-           id.ParameterName = "@id";
-           id.Value = id;
+           MySqlParameter stylistId = new MySqlParameter("@id", id);
            cmd.Parameters.Add(stylistId);
 
            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
