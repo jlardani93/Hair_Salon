@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form action="/Client/Create" method="post">
+        <label for="name">Client Name: </label>
+        <input type="text" name="name" id="name">
+        <input type="hidden" name="stylistId" value="@Model.GetId()">
+        <button type="submit" class="btn">Create Client</button>
+      </form>
+      <a href="/Stylist/Info/@Model.GetId()">Go Back to @Model.Getname()&44;s stylist page</a>
+    </div>
+  </div>
+</div>
