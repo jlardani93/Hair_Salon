@@ -12,7 +12,7 @@ namespace HairSalonProject.Controllers
         public ActionResult Display()
         {
             List<Specialty> mySpecialties = Specialty.GetAll();
-            return View();
+            return View(mySpecialties);
         }
 
         [HttpGet("/Specialty/Form")]

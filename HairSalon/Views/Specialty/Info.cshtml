@@ -1,4 +1,4 @@
-{
+@{
   Layout = "_Layout";
 }
 
@@ -13,7 +13,7 @@
           <a href="/Stylist/Info/@stylist.GetId()"><li>@stylist.GetName()</li></a>
         }
       </ul>
-      <form action="/Specialties_Stylists/@Model.GetId()" method="post" id="form">
+      <form action="#" method="post" id="form">
         <select name="stylistId" id="stylistId">
           @foreach (var stylist in ViewBag.stylists)
           {
@@ -31,7 +31,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $("form").submit(function() {
-      this.attr("action", "/Specialties_Stylists/Create/@Model.GetId()/" + $("#stylistId").Val() + "/0");
+      $("form#form").attr("action", "/Specialties_Stylists/Create/@Model.GetId()/" + $("#stylistId").val() + "/0");
     });
   });
 </script>

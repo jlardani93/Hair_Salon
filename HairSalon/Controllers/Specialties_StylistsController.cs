@@ -8,7 +8,7 @@ namespace HairSalonProject.Controllers
 {
     public class Specialty_StylistController : Controller
     {
-        [HttpPost("/Specialty_Stylist/Create/{specialtyId}/{stylistId}/{fromStylist}")]
+        [HttpPost("/Specialties_Stylists/Create/{mySpecialtyId}/{myStylistId}/{fromStylist}")]
         public ActionResult Create(int mySpecialtyId, int myStylistId, int fromStylist)
         {
             DB.AddSpecialty_Stylist(mySpecialtyId, myStylistId);

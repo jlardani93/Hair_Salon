@@ -104,8 +104,8 @@ namespace HairSalonProject.Models
             while (rdr.Read())
             {
                 int id = (int) rdr.GetInt32(0);
-                string name = rdr.GetName(1);
-                Stylist myStylist = new Stylist(name);
+                string myName = rdr.GetString(1);
+                Stylist myStylist = new Stylist(myName);
                 myStylist.SetId(id);
                 myStylists.Add(myStylist);
             }

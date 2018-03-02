@@ -36,7 +36,7 @@ namespace HairSalonProject.Controllers
         {
             Stylist myStylist = Stylist.Find(stylistId);
             myStylist.Delete();
-            return RedirectToAction("/", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet("/Stylist/DeleteAll")]

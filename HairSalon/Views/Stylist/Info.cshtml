@@ -25,7 +25,7 @@
         </ul>
       }
       <a href="/Client/Form/@Model.GetId()"><button type="button" class="btn">Add a Client</button></a>
-      <form action="/Specialties_Stylists/@Model.GetId()" id="form" method="post">
+      <form action="#" id="form" method="post">
         <select name="specialtyId" id="specialtyId">
           @foreach (var specialty in ViewBag.specialties)
           {
@@ -42,8 +42,9 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $("button#submitButton").click(function() {
-      $("#form").attr("action", "/Specialties_Stylists/Create/" + $("#specialtyId").Val() + "/@Model.GetId()/1");
+    $("form").submit(function() {
+      console.log("writing");
+      $("form#form").attr("action", "/Specialties_Stylists/Create/" + $("#specialtyId").val() + "/@Model.GetId()/1");
     });
   });
 </script>
