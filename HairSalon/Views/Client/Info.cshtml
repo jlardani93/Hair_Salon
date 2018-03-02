@@ -1,0 +1,41 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Client Name: @Model.GetName()</h2>
+      <h3>Stylist Name: @ViewBag.stylist</h3>
+      <button type="button" class="btn" id="editClient">Edit Client Information</button>
+      <form action="/Client/Update/@Model.GetId()" method="post" id="editClientForm">
+        <div class="form-group">
+          <label for="name">Input New Name: </label>
+          <input type="text" name="name" id="name" value="@Model.GetName()">
+        </div>
+        <div class="form-group">
+          <label for="stylistId">New Stylist: </label>
+          <select name="stylistId" id="stylistId">
+            @foreach (var stylist in ViewBag.stylists)
+            {
+              <option value="@stylist.GetId()">@stylist.GetName()</option>
+            }
+          </select>
+        </div>
+        <button type="submit">Submit New Information</button>
+      </form>
+      <a href="/"><button type="button" class="btn">View All Stylists</button></a>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var defaultStylistId = @Model.GetStylistId();
+    $("option[value=" + defaultStylistId + "]").attr("selected", "selected");
+
+    $("#editClient").click(function() {
+      $("#editClientForm").toggle();
+    });
+  });
+</script>

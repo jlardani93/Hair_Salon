@@ -25,6 +25,26 @@ namespace HairSalonProject.Controllers
             return RedirectToAction("Info", "Stylist", new {id=stylistId});
         }
 
+        [HttpGet("/Client/Info/{clientId}")]
+        public ActionResult Info(int clientId)
+        {
+            Client myClient = Client.Find(clientId);
+            Stylist myStylist = Stylist.Find(myClient.GetStylistId());
+            ViewBag.stylist = myStylist.GetName();
+            ViewBag.stylists = Stylist.GetAll();
+            return View(myClient);
+        }
+
+        [HttpPost("/Client/Update/{clientId}")]
+        public ActionResult Update(int clientId)
+        {
+            string name = Request.Form["name"];
+            int stylistId = Int32.Parse(Request.Form["stylistId"]);
+            Client myClient = Client.Find(clientId);
+            myClient.Update(name, stylistId);
+            return RedirectToAction("Info", new {clientId = clientId});
+        }
+
         [HttpGet("/Client/Delete/{clientId}/{stylistId}")]
         public ActionResult Delete(int clientId, int myStylistId)
         {

@@ -5,12 +5,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2>Stylist: @Model.GetName()</h2>
+      <h2>Stylist: @Model.GetName()</h2><button type="button" class="btn" id="editName">Edit Name</button>
+      <form action="/Stylist/Update/@Model.GetId()" method="post" id="editNameForm">
+        <label for="name">Input New Name: </label>
+        <input name="name" id="name">
+        <button type="submit">Submit New Name</button>
+      </form>
       <h3>Clients</h3>
       <ul>
         @foreach (var client in Model.GetClients())
         {
-          <li>@client.GetName()</li><a href="/Client/Delete/@client.GetId()/@Model.GetId()"><button type="button" class="btn">Delete Client</button></a>
+          <a href="/Client/Info/@client.GetId()"><li>@client.GetName()</li></a>
+          <a href="/Client/Delete/@client.GetId()/@Model.GetId()"><button type="button">Delete Client</button></a>
         }
       </ul>
       <br>
@@ -32,7 +38,7 @@
             <option value="@specialty.GetId()">@specialty.GetName()</option>
           }
         </select>
-        <button type="submit" class="btn" id="submitButton">Add Specialty</button>
+        <button type="submit" id="submitButton">Add Specialty</button>
       </form>
       <a href="/Stylist/Delete/@Model.GetId()"><button type="button" class="btn">Delete This Stylist</button></a>
       <a href="/"><button type="button" class="btn">View All Stylists</button></a>
@@ -42,9 +48,16 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
+    $("#editNameForm").hide();
+
     $("form").submit(function() {
       console.log("writing");
       $("form#form").attr("action", "/Specialties_Stylists/Create/" + $("#specialtyId").val() + "/@Model.GetId()/1");
+    });
+
+    $("#editName").click(function() {
+      $("#editNameForm").toggle();
     });
   });
 </script>
