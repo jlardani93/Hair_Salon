@@ -1,0 +1,29 @@
+{
+  Layout = "_Layout";
+}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Specialty: @Model.GetName()</h2>
+      <h3>Stylists</h3>
+      <ul>
+        @foreach (var stylist in Model.GetStylists())
+        {
+          <a href="/Stylist/Info/@stylist.GetId()"><li>@stylist.GetName()</li></a>
+        }
+      </ul>
+      <form action="/Specialties_Stylists/@Model.GetId()" method="post">
+        <select name="stylistId" id="stylistId">
+          @foreach (var stylist in ViewBag.stylists)
+          {
+            <option value="@stylist.GetId()">@stylist.GetName()</option>
+          }
+        </select>
+        <button type="submit" class="btn">Add Stylist</button>
+      </form>
+      <a href="/Specialty/Delete/@Model.GetId()"><button type="button" class="btn">Delete This Specialty</button></a>
+      <a href="/Specialty/Display"><button type="button" class="btn">View All Specialties</button></a>
+    </div>
+  </div>
+</div>

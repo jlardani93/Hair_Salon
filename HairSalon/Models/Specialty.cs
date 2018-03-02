@@ -63,7 +63,7 @@ namespace HairSalonProject.Models
             conn.Dispose();
         }
 
-        public List<Specialty> GetAll()
+        public static List<Specialty> GetAll()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -115,7 +115,7 @@ namespace HairSalonProject.Models
             return myStylists;
         }
 
-        public Specialty Find(int specialtyId)
+        public static Specialty Find(int specialtyId)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -157,7 +157,7 @@ namespace HairSalonProject.Models
 
             cmd.ExecuteNonQuery();
 
-            conn.Dispose(); 
+            conn.Dispose();
         }
     }
 }

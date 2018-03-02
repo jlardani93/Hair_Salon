@@ -24,5 +24,13 @@ namespace HairSalonProject.Controllers
             myClient.Save();
             return RedirectToAction("Info", "Stylist", new {id=stylistId});
         }
+
+        [HttpGet("/Client/Delete/{clientId}/{stylistId}")]
+        public ActionResult Delete(int clientId, int myStylistId)
+        {
+            Client myClient = Client.Find(clientId);
+            myClient.Delete();
+            return RedirectToAction("Info", "Stylist", new {stylistId=myStylistId})
+        }
     }
 }

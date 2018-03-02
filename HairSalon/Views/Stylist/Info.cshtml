@@ -10,10 +10,28 @@
       <ul>
         @foreach (var client in Model.GetClients())
         {
-          <li>@client.GetName()</li>
+          <li>@client.GetName()</li><a href="/Client/Delete/@client.GetId()/@Model.GetId()"><button type="button" class="btn">Delete Client</button></a>
+        }
+      </ul>
+      <br>
+      <h3>Specialties</h3>
+      <ul>
+        @foreach (var specialty in Model.GetSpecialties())
+        {
+          <a href="/Specialty/Info/@specialty.GetId()"><li>@specialty.GetName()</li></a>
         }
       </ul>
       <a href="/Client/Form/@Model.GetId()"><button type="button" class="btn">Add a Client</button></a>
+      <form action="/Specialties_Stylists/@Model.GetId()" method="post">
+        <select name="specialtyId" id="specialtyId">
+          @foreach (var specialty in ViewBag.specialties)
+          {
+            <option value="@specialty.GetId()">@specialty.GetName()</option>
+          }
+        </select>
+        <button type="submit" class="btn">Add Specialty</button>
+      </form>
+      <a href="/Stylist/Delete/@Model.GetId()"><button type="button" class="btn">Delete This Stylist</button></a>
       <a href="/"><button type="button" class="btn">View All Stylists</button></a>
     </div>
   </div>

@@ -30,5 +30,20 @@ namespace HairSalonProject.Controllers
             return View(myStylist);
         }
 
+        [HttpGet("/Stylist/Delete/{stylistId}")]
+        public ActionResult Delete(int stylistId)
+        {
+            Stylist myStylist = Stylist.Find(id);
+            myStylist.Delete();
+            return RedirectToAction("/", "Home"); 
+        }
+
+        [HttpGet("/Stylist/DeleteAll")]
+        public ActionResult DeleteAll()
+        {
+            Stylist.DeleteAll();
+            return RedirectToAction("/", "Home");
+        }
+
     }
 }
