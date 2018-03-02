@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 23, 2018 at 10:56 PM
+-- Generation Time: Mar 03, 2018 at 12:03 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -39,10 +39,51 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `stylist_id`) VALUES
-(1, 'Bob', 3),
-(2, 'George', 3),
-(3, 'Josh', 4),
-(4, 'Alex', 4);
+(5, 'Jimmy', 7),
+(6, 'Sara', 7),
+(7, 'Jill', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specialties`
+--
+
+CREATE TABLE `specialties` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `specialties`
+--
+
+INSERT INTO `specialties` (`id`, `name`) VALUES
+(1, 'Short Hair'),
+(2, 'Medium-Length Hair'),
+(3, 'Women\'s Hair'),
+(4, 'Men\'s Hair'),
+(5, 'Long Hair');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specialties_stylists`
+--
+
+CREATE TABLE `specialties_stylists` (
+  `id` int(11) NOT NULL,
+  `specialty_id` int(11) NOT NULL,
+  `stylist_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `specialties_stylists`
+--
+
+INSERT INTO `specialties_stylists` (`id`, `specialty_id`, `stylist_id`) VALUES
+(7, 4, 7),
+(8, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -60,10 +101,9 @@ CREATE TABLE `stylists` (
 --
 
 INSERT INTO `stylists` (`id`, `name`) VALUES
-(1, 'Justin'),
-(2, 'Justin'),
-(3, 'Justin'),
-(4, '');
+(5, 'Billy'),
+(6, 'Bob'),
+(7, 'Thomas');
 
 --
 -- Indexes for dumped tables
@@ -75,6 +115,18 @@ INSERT INTO `stylists` (`id`, `name`) VALUES
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `specialties`
+--
+ALTER TABLE `specialties`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `specialties_stylists`
+--
+ALTER TABLE `specialties_stylists`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `stylists`
@@ -91,12 +143,22 @@ ALTER TABLE `stylists`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `specialties`
+--
+ALTER TABLE `specialties`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `specialties_stylists`
+--
+ALTER TABLE `specialties_stylists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `stylists`
 --
 ALTER TABLE `stylists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
