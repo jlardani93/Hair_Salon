@@ -143,12 +143,30 @@ namespace HairSalonProject.Models
            return myStylist;
        }
 
+        public void Update(string stylistName)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE stylists SET name = @name WHERE id = @id;";
+
+            MySqlParameter name = new MySqlParameter("@name", stylistName);
+            MySqlParameter id = new MySqlParameter("@id", _id);
+            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(id);
+
+            cmd.ExecuteNonQuery();
+            _name = stylistName;
+            conn.Dispose(); 
+        }
+
         public void Delete()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM stylists WHERE id=@id;";
+            cmd.CommandText = @"DELETE FROM clients WHERE stylist_id=@id;
+            DELETE FROM stylists WHERE id=@id;";
 
             MySqlParameter id = new MySqlParameter();
             id.ParameterName = "@id";
@@ -169,7 +187,8 @@ namespace HairSalonProject.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM stylists;";
+            cmd.CommandText = @"DELETE FROM clients;
+            DELETE FROM stylists;";
 
             cmd.ExecuteNonQuery();
 

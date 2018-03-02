@@ -59,6 +59,33 @@ namespace HairSalonProject.Models
            }
         }
 
+        public static List<Client> GetAll()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM clients;"
+
+            List<Client> myClients = new List<Client>();
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while (rdr.Read())
+            {
+                int id = (int) rdr.GetInt32(0);
+                string tempName = rdr.GetString(1);
+                int tempStylistId = (int) rdr.GetInt32(2);
+
+                Client newClient = new Client(tempName, tempStylistId);
+                newClient.SetId(id);
+                myClients.Add(newClient);
+            }
+
+            conn.Dispose();
+
+            return myClients;
+        }
+
         public static Client Find(int id)
         {
             MySqlConnection conn = DB.Connection();
@@ -88,6 +115,27 @@ namespace HairSalonProject.Models
             Client myClient = new Client(tempName, tempStylistId);
             myClient.SetId(id);
             return myClient;
+        }
+
+        public void Update(string clientName, int clientStylistId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE clients SET name = @name, stylist_id = @stylistId WHERE id = @id;";
+
+            MySqlParameter name = new MySqlParameter("@name", clientName);
+            MySqlParameter stylistId = new MySqlParameter("@stylistId", clientStylistId);
+            MySqlParameter id = new MySqlParameter("@id", _id);
+            cmd.Parameters.Add(name);
+            cmd.Parameters.Add(stylistId);
+            cmd.Parameters.Add(id);
+
+            cmd.ExecuteNonQuery();
+            _name = clientName;
+            _stylistId = clientStylistId;
+
+            conn.Dispose(); 
         }
 
         public void Delete()
