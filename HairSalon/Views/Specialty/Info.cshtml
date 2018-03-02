@@ -13,17 +13,25 @@
           <a href="/Stylist/Info/@stylist.GetId()"><li>@stylist.GetName()</li></a>
         }
       </ul>
-      <form action="/Specialties_Stylists/@Model.GetId()" method="post">
+      <form action="/Specialties_Stylists/@Model.GetId()" method="post" id="form">
         <select name="stylistId" id="stylistId">
           @foreach (var stylist in ViewBag.stylists)
           {
             <option value="@stylist.GetId()">@stylist.GetName()</option>
           }
         </select>
-        <button type="submit" class="btn">Add Stylist</button>
+        <button type="submit" class="btn" id="submitButton">Add Stylist</button>
       </form>
       <a href="/Specialty/Delete/@Model.GetId()"><button type="button" class="btn">Delete This Specialty</button></a>
       <a href="/Specialty/Display"><button type="button" class="btn">View All Specialties</button></a>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("form").submit(function() {
+      this.attr("action", "/Specialties_Stylists/Create/@Model.GetId()/" + $("#stylistId").Val() + "/0");
+    });
+  });
+</script>

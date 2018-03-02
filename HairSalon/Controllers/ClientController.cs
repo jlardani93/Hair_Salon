@@ -30,7 +30,7 @@ namespace HairSalonProject.Controllers
         {
             Client myClient = Client.Find(clientId);
             myClient.Delete();
-            return RedirectToAction("Info", "Stylist", new {stylistId=myStylistId})
+            return RedirectToAction("Info", "Stylist", new {stylistId=myStylistId});
         }
     }
 }

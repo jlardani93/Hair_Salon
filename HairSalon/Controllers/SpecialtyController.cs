@@ -1,6 +1,6 @@
 using System;
-using Sytem.Collections.Generic;
-using Microsoft.AspNetcore.Mvc;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using HairSalonProject.Models;
 
@@ -31,7 +31,7 @@ namespace HairSalonProject.Controllers
         }
 
         [HttpGet("/Specialty/Info/{specialtyId}")]
-        public ActionResult Info(int specialtyId);
+        public ActionResult Info(int specialtyId)
         {
             Specialty mySpecialty = Specialty.Find(specialtyId);
             ViewBag.stylists = Stylist.GetAll();
@@ -39,7 +39,7 @@ namespace HairSalonProject.Controllers
         }
 
         [HttpGet("/Specialty/Delete/{specialtyId}")]
-        public ACtionResult Delete(int specialtyId);
+        public ActionResult Delete(int specialtyId)
         {
             Specialty mySpecialty = Specialty.Find(specialtyId);
             mySpecialty.Delete();

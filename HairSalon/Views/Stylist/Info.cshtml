@@ -14,25 +14,36 @@
         }
       </ul>
       <br>
-      <h3>Specialties</h3>
-      <ul>
-        @foreach (var specialty in Model.GetSpecialties())
-        {
-          <a href="/Specialty/Info/@specialty.GetId()"><li>@specialty.GetName()</li></a>
-        }
-      </ul>
+      @if (Model.GetSpecialties().Count != 0)
+      {
+        <h3>Specialties</h3>
+        <ul>
+          @foreach (var specialty in Model.GetSpecialties())
+          {
+            <a href="/Specialty/Info/@specialty.GetId()"><li>@specialty.GetName()</li></a>
+          }
+        </ul>
+      }
       <a href="/Client/Form/@Model.GetId()"><button type="button" class="btn">Add a Client</button></a>
-      <form action="/Specialties_Stylists/@Model.GetId()" method="post">
+      <form action="/Specialties_Stylists/@Model.GetId()" id="form" method="post">
         <select name="specialtyId" id="specialtyId">
           @foreach (var specialty in ViewBag.specialties)
           {
             <option value="@specialty.GetId()">@specialty.GetName()</option>
           }
         </select>
-        <button type="submit" class="btn">Add Specialty</button>
+        <button type="submit" class="btn" id="submitButton">Add Specialty</button>
       </form>
       <a href="/Stylist/Delete/@Model.GetId()"><button type="button" class="btn">Delete This Stylist</button></a>
       <a href="/"><button type="button" class="btn">View All Stylists</button></a>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("button#submitButton").click(function() {
+      $("#form").attr("action", "/Specialties_Stylists/Create/" + $("#specialtyId").Val() + "/@Model.GetId()/1");
+    });
+  });
+</script>

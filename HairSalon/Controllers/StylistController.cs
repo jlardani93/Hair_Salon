@@ -20,22 +20,23 @@ namespace HairSalonProject.Controllers
             string name = Request.Form["name"];
             Stylist myStylist = new Stylist(name);
             myStylist.Save();
-            return View("Info", myStylist);
+            return RedirectToAction("Info", new {stylistId = myStylist.GetId()});
         }
 
-        [HttpGet("/Stylist/Info/{id}")]
-        public ActionResult Info(int id)
+        [HttpGet("/Stylist/Info/{stylistId}")]
+        public ActionResult Info(int stylistId)
         {
-            Stylist myStylist = Stylist.Find(id);
+            Stylist myStylist = Stylist.Find(stylistId);
+            ViewBag.specialties = Specialty.GetAll();
             return View(myStylist);
         }
 
         [HttpGet("/Stylist/Delete/{stylistId}")]
         public ActionResult Delete(int stylistId)
         {
-            Stylist myStylist = Stylist.Find(id);
+            Stylist myStylist = Stylist.Find(stylistId);
             myStylist.Delete();
-            return RedirectToAction("/", "Home"); 
+            return RedirectToAction("/", "Home");
         }
 
         [HttpGet("/Stylist/DeleteAll")]

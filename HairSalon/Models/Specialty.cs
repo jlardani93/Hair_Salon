@@ -10,7 +10,7 @@ namespace HairSalonProject.Models
         private int _id;
         private string _name;
 
-        public void Specialty(string name)
+        public Specialty(string name)
         {
             _name = name;
         }
@@ -94,7 +94,7 @@ namespace HairSalonProject.Models
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT stylists.* FROM specialties JOIN specialties_stylists ON (specialties.id = specialties_stylists.specialty_id) JOIN stylists ON (specialties_stylists.stylist_id = stylists.id) WHERE specialties.id = @specialtyId;";
 
-            MySqlParameter specialtyId = new MySqlParamter("@specialtyId", _id);
+            MySqlParameter specialtyId = new MySqlParameter("@specialtyId", _id);
             cmd.Parameters.Add(specialtyId);
 
             List<Stylist> myStylists = new List<Stylist>();
@@ -128,7 +128,7 @@ namespace HairSalonProject.Models
             int myId = 0;
             string myName = "";
 
-            MySqlDataReader = cmd.ExecuteReader() as MySqlDataReader;
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 
             while (rdr.Read())
             {
@@ -144,7 +144,7 @@ namespace HairSalonProject.Models
             return mySpecialty;
         }
 
-        public Specialty Delete()
+        public void Delete()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -152,8 +152,21 @@ namespace HairSalonProject.Models
             cmd.CommandText = @"DELETE FROM specialties_stylists WHERE specialty_id = @id;
             DELETE FROM specialties WHERE id = @id;";
 
-            MySqlParameter id = newMySqlParameter("@id", _id);
+            MySqlParameter id = new MySqlParameter("@id", _id);
             cmd.Parameters.Add(id);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Dispose();
+        }
+
+        public static void DeleteAll()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM specialties_stylists;
+            DELETE FROM specialties;";
 
             cmd.ExecuteNonQuery();
 

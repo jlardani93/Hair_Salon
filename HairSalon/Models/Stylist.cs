@@ -61,7 +61,7 @@ namespace HairSalonProject.Models
             cmd.CommandText = @"INSERT INTO specialties_stylists (specialty_id, stylist_id) VALUES (@specialtyId, @stylistId);";
 
             MySqlParameter specialtyId = new MySqlParameter("@specialtyId", newSpecialtyId);
-            MYSqlParameter stylistId = new MySqlParameter("@stylistId", _id);
+            MySqlParameter stylistId = new MySqlParameter("@stylistId", _id);
             cmd.Parameters.Add(specialtyId);
             cmd.Parameters.Add(stylistId);
 

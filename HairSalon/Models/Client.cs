@@ -64,7 +64,7 @@ namespace HairSalonProject.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM clients;"
+            cmd.CommandText = @"SELECT * FROM clients;";
 
             List<Client> myClients = new List<Client>();
 
@@ -135,7 +135,7 @@ namespace HairSalonProject.Models
             _name = clientName;
             _stylistId = clientStylistId;
 
-            conn.Dispose(); 
+            conn.Dispose();
         }
 
         public void Delete()
