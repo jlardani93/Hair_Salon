@@ -53,6 +53,23 @@ namespace HairSalonProject.Models
            }
         }
 
+        public void AddSpecialty(int newSpecialtyId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO specialties_stylists (specialty_id, stylist_id) VALUES (@specialtyId, @stylistId);";
+
+            MySqlParameter specialtyId = new MySqlParameter("@specialtyId", newSpecialtyId);
+            MYSqlParameter stylistId = new MySqlParameter("@stylistId", _id);
+            cmd.Parameters.Add(specialtyId);
+            cmd.Parameters.Add(stylistId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Dispose();
+        }
+
         public static List<Stylist> GetAll()
         {
            List<Stylist> stylists = new List<Stylist>();
@@ -112,6 +129,33 @@ namespace HairSalonProject.Models
             return myClients;
         }
 
+        public List<Specialty> GetSpecialties()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"Select specialties.* FROM stylists JOIN specialties_stylists ON (stylists.id = specialties_stylists.stylist_id) JOIN specialties ON (specialties_stylists.specialty_id = specialties.id) WHERE stylists.id = @stylistId;";
+
+            MySqlParameter stylistId = new MySqlParameter("@stylistId", _id);
+            cmd.Parameters.Add(stylistId);
+
+            List<Specialty> mySpecialties = new List<Specialty>();
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while (rdr.Read())
+            {
+                int id = (int) rdr.GetInt32(0);
+                string name = rdr.GetString(1);
+                Specialty mySpecialty = new Specialty(name);
+                mySpecialty.SetId(id);
+                mySpecialties.Add(mySpecialty);
+            }
+
+            conn.Dispose();
+            return mySpecialties;
+        }
+
        public static Stylist Find(int id)
        {
            MySqlConnection conn = DB.Connection();
@@ -157,7 +201,7 @@ namespace HairSalonProject.Models
 
             cmd.ExecuteNonQuery();
             _name = stylistName;
-            conn.Dispose(); 
+            conn.Dispose();
         }
 
         public void Delete()
@@ -165,8 +209,9 @@ namespace HairSalonProject.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM clients WHERE stylist_id=@id;
-            DELETE FROM stylists WHERE id=@id;";
+            cmd.CommandText = @"DELETE FROM specialties_stylists WHERE stylist_id = @id;
+            DELETE FROM clients WHERE stylist_id = @id;
+            DELETE FROM stylists WHERE id = @id;";
 
             MySqlParameter id = new MySqlParameter();
             id.ParameterName = "@id";
